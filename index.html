@@ -39,3 +39,158 @@
   }
 }
 </style>
+<style>
+.lux-info {
+  margin-top: 12px;
+  padding: 16px;
+  border: 1px solid #B026FF;
+  border-radius: 14px;
+  background: #100b20;
+  color: #f5f2ff;
+  line-height: 1.6;
+}
+
+.lux-info h4 {
+  color: #00F5FF;
+  margin: 12px 0 6px;
+}
+
+.lux-info li {
+  margin-bottom: 7px;
+}
+
+.lux-info[hidden] {
+  display: none;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const servicos = document.querySelectorAll("#servicos .service");
+
+  const informacoes = [
+    {
+      titulo: "Sites profissionais",
+      beneficios: [
+        "Visual moderno e personalizado para sua marca",
+        "Layout adaptado para celular e computador",
+        "Apresentação de serviços e diferenciais",
+        "Botões de contato e redes sociais",
+        "Orientação para publicação do site"
+      ]
+    },
+    {
+      titulo: "Landing pages",
+      beneficios: [
+        "Página focada em apresentar uma oferta",
+        "Destaque para benefícios e diferenciais",
+        "Botões para solicitar atendimento",
+        "Design responsivo",
+        "Estrutura para facilitar a conversão"
+      ]
+    },
+    {
+      titulo: "Cardápios digitais",
+      beneficios: [
+        "Produtos organizados por categorias",
+        "Fotos, descrições e preços",
+        "Visual personalizado para o negócio",
+        "Acesso fácil pelo celular",
+        "Opção de integração com WhatsApp"
+      ]
+    },
+    {
+      titulo: "Portfólios profissionais",
+      beneficios: [
+        "Galeria para apresentar seus trabalhos",
+        "Descrição dos projetos",
+        "Visual profissional e responsivo",
+        "Links para redes sociais",
+        "Área de contato"
+      ]
+    },
+    {
+      titulo: "Página de links para bio",
+      beneficios: [
+        "Todos os links importantes em um lugar",
+        "Identidade visual personalizada",
+        "Botões para WhatsApp e redes sociais",
+        "Layout otimizado para celular"
+      ]
+    },
+    {
+      titulo: "Artes para redes sociais",
+      beneficios: [
+        "Artes alinhadas à identidade da marca",
+        "Peças para publicações e stories",
+        "Destaque para produtos e promoções",
+        "Arquivos digitais para divulgação"
+      ]
+    }
+  ];
+
+  servicos.forEach(function (servico, indice) {
+    const info = informacoes[indice];
+    if (!info) return;
+
+    const botao = Array.from(
+      servico.querySelectorAll("button, a")
+    ).find(function (elemento) {
+      return elemento.textContent.toLowerCase().includes("detalhes");
+    });
+
+    if (!botao) return;
+
+    const painel = document.createElement("div");
+    painel.className = "lux-info";
+    painel.hidden = true;
+
+    const titulo = document.createElement("h4");
+    titulo.textContent = "O que está incluído";
+
+    const lista = document.createElement("ul");
+
+    info.beneficios.forEach(function (beneficio) {
+      const item = document.createElement("li");
+      item.textContent = beneficio;
+      lista.appendChild(item);
+    });
+
+    const etapas = document.createElement("h4");
+    etapas.textContent = "Como funciona";
+
+    const processo = document.createElement("p");
+    processo.textContent =
+      "1. Conversamos sobre sua ideia. " +
+      "2. Definimos o conteúdo e o visual. " +
+      "3. Desenvolvemos o projeto. " +
+      "4. Revisamos e combinamos a entrega.";
+
+    const aviso = document.createElement("p");
+    aviso.textContent =
+      "O escopo, o prazo e o orçamento são definidos " +
+      "conforme as necessidades de cada projeto.";
+
+    painel.append(titulo, lista, etapas, processo, aviso);
+    servico.appendChild(painel);
+
+    const abrir = document.createElement("button");
+    abrir.type = "button";
+    abrir.className = "ghost";
+    abrir.textContent = "Mais informações +";
+    abrir.setAttribute("aria-expanded", "false");
+    abrir.style.marginTop = "8px";
+    abrir.style.width = "100%";
+
+    abrir.addEventListener("click", function () {
+      painel.hidden = !painel.hidden;
+      abrir.textContent = painel.hidden
+        ? "Mais informações +"
+        : "Ocultar informações −";
+      abrir.setAttribute("aria-expanded", String(!painel.hidden));
+    });
+
+    servico.appendChild(abrir);
+  });
+});
+</script>
